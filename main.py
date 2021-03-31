@@ -9,52 +9,58 @@ from sklearn import datasets
 from sklearn.linear_model import LogisticRegression
 from sklearn.model_selection import cross_val_predict, train_test_split
 from sklearn.preprocessing import StandardScaler, LabelEncoder
-from sklearn.metrics import confusion_matrix, classification_report
+from sklearn.metrics import classification_report
 from sklearn import linear_model
-import matplotlib.pyplot as mp
 import numpy as np
 import scipy as sp
 import pandas as pd
+import os
 import matplotlib
 
 matplotlib.use('TkAgg')
 import matplotlib.pyplot as plt
 import seaborn as sns
 
+#print(os.listdir("/home/useradd/Eick-4368-AI-Code/Cosc4368/Cosc4368-AI-Assignment-2/Cosc4368-Project-4"))
+
+ifs = "/home/useradd/Eick-4368-AI-Code/Cosc4368/Cosc4368-AI-Assignment-2/Cosc4368-Project-4/hearts.csv"
+
 #must read in entire csv file path
-heartdisease = pd.read_csv("/home/useradd/Eick-4368-AI-Code/Cosc4368/Cosc4368-AI-Assignment-2/Cosc4368-Project-4/hearts.csv", sep = ',')
-#print(inputfile.head())
+data = pd.read_csv(ifs, header=0)
+print(data.head(5))
 
-print(heartdisease) #prints all data
-print(heartdisease.head()) #prints first 5 sets #from pandas
-print(heartdisease.info()) #prints the data types of our set
+#ASSIGN the data
+x = data.iloc[:, :-1].values
+y = data.iloc[:, -1].values
 
-#print(data.isnull().sum()) #gives a summation of how many null values are in each one
-#obviously for this, there will be 0 non-null values
+#SPLIT to test and train the data
+x_train, x_test, y_train, y_test = train_test_split(x,y,test_size = 0.2, random_state = 1)
 
-label_quality = LabelEncoder()
-heartdisease['high_blood_pressure'] = label_quality.fit_transform(heartdisease['high_blood_pressure'])
+#NORMALIZE the massive numbers to percentages so everything is equally weighted
+sc = StandardScaler()
+x_train = sc.fit_transform(x_train)
+x_test = sc.transform(x_test)
 
-X = heartdisease.drop('high_blood_pressure', axis = 1)
-y = heartdisease['high_blood_pressure']
+modelLG = LogisticRegression(random_state=1) #instance of model
+modelLG.fit(x_train, y_train) #train/fit model
 
-#Train and Test splitting of data
-X_train, X_test, y_train, y_test = train_test_split(X, y, test_size = .2, random_state = 42)
+y_predLG = modelLG.predict(x_test) #gets y predictions
+print(classification_report(y_test, y_predLG))
 
-#Applying Linear Regression/Standard Scalar to get optimized result
-#levels playing field in terms of extremely high numbers
-sc = StandardScaler() #will also need to implement Linear Regression as well
-X_train = sc.fit_transform(X_train, y_train)
-X_test = sc.transform(X_test)
+#summarizes the count, the mean, the standard deviation, the min and the max numeric variables.
+print(data.describe())
 
-#print out variables
-print(X_train[:10]) #shows the first 10 sets
+#prints data values that are null || 0
+#print(data.isnull().sum())
 
-plt.scatter(X_test, y_test, color = 'red')
-plt.plot(X_test, sc, color = 'blue', linewidth = 3)
+#calculate correlation matrix
+corr = data.corr()
+plt.subplots(figsize=(15,10))
+sns.heatmap(corr, xticklabels=corr.columns, yticklabels=corr.columns, annot=True, cmap=sns.diverging_palette(220, 20, as_cmap=True))
+sns.heatmap(corr, xticklabels=corr.columns, yticklabels=corr.columns, annot=True, cmap=sns.diverging_palette(220, 20, as_cmap=True))
 
-plt.xticks(())
-plt.yticks(())
+#subData = data[['age', 'trestbps','chol','thalach','oldpeak']]
+#sns.pairplot(subData)
 
 print("done")
 
