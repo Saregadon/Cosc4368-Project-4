@@ -1,5 +1,6 @@
 #python3.7 -m pip install numpy scipy matplotlib pandas scikit-learn
 #sudo apt-get install python3-tk inside of linux Terminal, not python environment
+import csv
 import sklearn as skl
 from sklearn import datasets
 from sklearn.model_selection import cross_val_predict
@@ -13,7 +14,7 @@ matplotlib.use('TkAgg')
 import matplotlib.pyplot as plt
 import sklearn as skl
 
-ifs = "hearts.csv"
+ifs = "/home/useradd/Eick-4368-AI-Code/Cosc4368/Cosc4368-AI-Assignment-2/Cosc4368-Project-4/hearts.csv"
 
 inputfile = pd.read_csv(ifs, header = 0)
 
