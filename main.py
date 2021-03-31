@@ -9,6 +9,7 @@ from sklearn import datasets
 from sklearn.linear_model import LogisticRegression
 from sklearn.model_selection import cross_val_predict, train_test_split
 from sklearn.preprocessing import StandardScaler, LabelEncoder
+from sklearn.metrics import confusion_matrix, classification_report
 from sklearn import linear_model
 import matplotlib.pyplot as mp
 import numpy as np
@@ -43,13 +44,17 @@ X_train, X_test, y_train, y_test = train_test_split(X, y, test_size = .2, random
 #Applying Linear Regression/Standard Scalar to get optimized result
 #levels playing field in terms of extremely high numbers
 sc = StandardScaler() #will also need to implement Linear Regression as well
-X_train = sc.fit_transform(X_train)
+X_train = sc.fit_transform(X_train, y_train)
 X_test = sc.transform(X_test)
 
 #print out variables
 print(X_train[:10]) #shows the first 10 sets
 
+plt.scatter(X_test, y_test, color = 'red')
+plt.plot(X_test, sc, color = 'blue', linewidth = 3)
 
+plt.xticks(())
+plt.yticks(())
 
 print("done")
 
