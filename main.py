@@ -47,6 +47,11 @@ modelLG.fit(x_train, y_train) #train/fit model
 y_predLG = modelLG.predict(x_test) #gets y predictions
 print(classification_report(y_test, y_predLG))
 
+plt.plot(classification_report(y_test, y_predLG))
+plt.xlabel('heart disease')
+plt.ylabel('age')
+plt.show()
+
 #summarizes the count, the mean, the standard deviation, the min and the max numeric variables.
 print(data.describe())
 
