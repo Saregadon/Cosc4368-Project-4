@@ -13,9 +13,9 @@ matplotlib.use('TkAgg')
 import matplotlib.pyplot as plt
 import sklearn as skl
 
-ifs = ""
+ifs = "hearts.csv"
 
-inputfile = pd.read_csv(r'')
+inputfile = pd.read_csv(ifs, header = 0)
 
 dataset = pd.DataFrame()
 
