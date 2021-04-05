@@ -43,14 +43,18 @@ ifs = "/home/useradd/Eick-4368-AI-Code/Cosc4368/Cosc4368-AI-Assignment-2/Cosc436
 
 #must read in entire csv file path
 df = pd.read_csv(ifs, header=0)
-print(df.corr())
+df.corr()
 #print(df)
 #print(df.head(5))
 
+print(df['DEATH_EVENT'].value_counts())
+#print(df.isna().sum())
 #plt.figure(figsize=(7,7))
 #plt.show()
 #sns.heatmap(df.corr(), annot=True, fmt='.0%')
 
+sns.countplot(df['DEATH_EVENT'])
+#plt.show()
 #remove Death_event cell
 #df = df.drop(['DEATH_EVENT'], axis = 1)
 
