@@ -8,7 +8,7 @@ from sklearn import linear_model
 from sklearn.svm import SVC
 from sklearn.neural_network import MLPClassifier
 from sklearn.linear_model import LogisticRegression
-from sklearn.model_selection import cross_val_predict, train_test_split, cross_val_score
+from sklearn.model_selection import cross_val_predict, train_test_split, cross_val_score, cross_validate
 from sklearn.preprocessing import StandardScaler, LabelEncoder
 from sklearn.metrics import classification_report
 from sklearn.compose import make_column_transformer, make_column_selector
@@ -43,33 +43,40 @@ X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=.2)
 #death event 1 == death, death event 0 == survival
 
 #SVM linear work
-svmlinear = SVC(kernel='linear',random_state = 1)
-svm.fit(X_train, y_train)
-SVCV = cross_validate(svmlinear, X_train, y_train, random_state=1)
-svlin = svm.score(X_test, y_test)
+svmlinear = SVC(kernel='linear',random_state = 1).fit(X_train, y_train).fit(X_train, y_train)
+
+SVLCV = cross_validate(svmlinear, X_train, y_train, cv=10)
+svlin = svmlinear.score(X_test, y_test)
+print(SVLCV)
 print(svlin)
 
 #SVM poly work
-svmpoly = SVC(kernel='poly',random_state = 1)
-svm.fit(X_train, y_train)
-SVCV = cross_validate(svmlinear, X_train, y_train, random_state=1)
-svmpoly = svm.score(X_test, y_test)
-print(svmpoly)
+svmpoly = SVC(kernel='poly',random_state = 1).fit(X_train, y_train).fit(X_train, y_train)
+
+SVPCV = cross_validate(svmpoly, X_train, y_train, cv=10)
+svmpol = svmpoly.score(X_test, y_test)
+print(SVPCV)
+print(svmpol)
 
 #MLP logistic work
-MLP = MLPClassifier(activation='logistic', learning_rate='adaptive', random_state=1)
+MLPlog = MLPClassifier(activation='logistic', random_state=1, max_iter=5000).fit(X_train, y_train)
 
-"""
-#LR works
-lr = LogisticRegression()
-lr.fit(X_train,y_train)
-lraccuracies = lr.score(X_test,y_test)
-print(lraccuracies)
-"""
+logisticMLPcv = cross_validate(MLPlog, X_train, y_train, cv=10)
+mlplogistics = MLPlog.score(X_test, y_test)
+print(logisticMLPcv)
+print(mlplogistics)
+
+#MLP tanh work
+MLPtan = MLPClassifier(activation='tanh', random_state=1, max_iter=5000).fit(X_train, y_train)
+
+TanhMLPcv = cross_validate(MLPtan, X_train, y_train, cv=10)
+fixmlp = mlplogistics.score(X_test, y_test)
+print(TanhMLPcv)
+print(fixmlp)
 
 plt.scatter(x=df.ejection_fraction[df.DEATH_EVENT==1], y=df.serum_creatinine[(df.DEATH_EVENT==1)], c="red")
 plt.scatter(x=df.ejection_fraction[df.DEATH_EVENT==0], y=df.serum_creatinine[(df.DEATH_EVENT==0)])
-plt.legend(["Disease", "Not Disease"])
+plt.legend(["Disease", "No Disease"])
 plt.xlabel("Ejection Fraction")
 plt.ylabel("Serum Creatinine")
 plt.show()
