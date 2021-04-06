@@ -70,7 +70,7 @@ print(mlplogistics)
 MLPtan = MLPClassifier(activation='tanh', random_state=1, max_iter=5000).fit(X_train, y_train)
 
 TanhMLPcv = cross_validate(MLPtan, X_train, y_train, cv=10)
-fixmlp = mlplogistics.score(X_test, y_test)
+fixmlp = MLPtan.score(X_test, y_test)
 print(TanhMLPcv)
 print(fixmlp)
 
