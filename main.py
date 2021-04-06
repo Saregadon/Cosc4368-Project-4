@@ -43,7 +43,7 @@ X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=.2)
 #death event 1 == death, death event 0 == survival
 
 #SVM linear work
-svmlinear = SVC(kernel='linear',random_state = 1).fit(X_train, y_train).fit(X_train, y_train)
+svmlinear = SVC(kernel='linear',random_state = 1).fit(X_train, y_train)
 
 SVLCV = cross_validate(svmlinear, X_train, y_train, cv=10)
 svlin = svmlinear.score(X_test, y_test)
@@ -51,7 +51,7 @@ svlin = svmlinear.score(X_test, y_test)
 print("Linear kernel accuracy percentage {}%".format(svlin*100))
 
 #SVM poly work
-svmpoly = SVC(kernel='poly',random_state = 1).fit(X_train, y_train).fit(X_train, y_train)
+svmpoly = SVC(kernel='poly',random_state = 1).fit(X_train, y_train)
 
 SVPCV = cross_validate(svmpoly, X_train, y_train, cv=10)
 svmpol = svmpoly.score(X_test, y_test)
