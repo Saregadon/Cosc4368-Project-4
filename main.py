@@ -48,7 +48,7 @@ svmlinear = SVC(kernel='linear',random_state = 1).fit(X_train, y_train).fit(X_tr
 SVLCV = cross_validate(svmlinear, X_train, y_train, cv=10)
 svlin = svmlinear.score(X_test, y_test)
 #print(SVLCV)
-print("Linear kernel search percentage {}".format(svlin))
+print("Linear kernel accuracy percentage {}".format(svlin))
 
 #SVM poly work
 svmpoly = SVC(kernel='poly',random_state = 1).fit(X_train, y_train).fit(X_train, y_train)
@@ -56,7 +56,7 @@ svmpoly = SVC(kernel='poly',random_state = 1).fit(X_train, y_train).fit(X_train,
 SVPCV = cross_validate(svmpoly, X_train, y_train, cv=10)
 svmpol = svmpoly.score(X_test, y_test)
 #print(SVPCV)
-print("Poly kernel search percentage {}".format(svmpol))
+print("Poly kernel accuracy percentage {}".format(svmpol))
 
 #MLP logistic work
 MLPlog = MLPClassifier(activation='logistic', random_state=1, max_iter=5000).fit(X_train, y_train)
