@@ -48,7 +48,7 @@ svmlinear = SVC(kernel='linear',random_state = 1).fit(X_train, y_train).fit(X_tr
 SVLCV = cross_validate(svmlinear, X_train, y_train, cv=10)
 svlin = svmlinear.score(X_test, y_test)
 #print(SVLCV)
-print("Linear kernel accuracy percentage {}".format(svlin))
+print("Linear kernel accuracy percentage {}%".format(svlin))
 
 #SVM poly work
 svmpoly = SVC(kernel='poly',random_state = 1).fit(X_train, y_train).fit(X_train, y_train)
@@ -56,7 +56,7 @@ svmpoly = SVC(kernel='poly',random_state = 1).fit(X_train, y_train).fit(X_train,
 SVPCV = cross_validate(svmpoly, X_train, y_train, cv=10)
 svmpol = svmpoly.score(X_test, y_test)
 #print(SVPCV)
-print("Poly kernel accuracy percentage {}".format(svmpol))
+print("Poly kernel accuracy percentage {}%".format(svmpol))
 
 #MLP logistic work
 MLPlog = MLPClassifier(activation='logistic', random_state=1, max_iter=5000).fit(X_train, y_train)
@@ -64,7 +64,7 @@ MLPlog = MLPClassifier(activation='logistic', random_state=1, max_iter=5000).fit
 logisticMLPcv = cross_validate(MLPlog, X_train, y_train, cv=10)
 mlplogistics = MLPlog.score(X_test, y_test)
 #print(logisticMLPcv)
-print("Logistic MPL accuracy percentage {}".format(mlplogistics))
+print("Logistic MPL accuracy percentage {}%".format(mlplogistics))
 
 #MLP tanh work
 MLPtan = MLPClassifier(activation='tanh', random_state=1, max_iter=5000).fit(X_train, y_train)
@@ -72,7 +72,7 @@ MLPtan = MLPClassifier(activation='tanh', random_state=1, max_iter=5000).fit(X_t
 TanhMLPcv = cross_validate(MLPtan, X_train, y_train, cv=10)
 fixmlp = MLPtan.score(X_test, y_test)
 #print(TanhMLPcv)
-print("Tanh MPL accuracy percentage {}".format(fixmlp))
+print("Tanh MPL accuracy percentage {}%".format(fixmlp))
 
 plt.scatter(x=df.ejection_fraction[df.DEATH_EVENT==1], y=df.serum_creatinine[(df.DEATH_EVENT==1)], c="red")
 plt.scatter(x=df.ejection_fraction[df.DEATH_EVENT==0], y=df.serum_creatinine[(df.DEATH_EVENT==0)])
